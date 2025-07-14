@@ -1,7 +1,24 @@
+import axios from "axios"
+import { useState, useEffect } from "react"
+import { ArtworksIndex } from "./ArtworksIndex"
+
 export function ArtworksPage() {
+  const [artworks, setArtworks] = useState([]);
+
+  const handleIndex = () => {
+    console.log("handleIndex");
+    axios.get("/artwork.json")
+    .then((response) => {
+      console.log(response.data.data);
+      setArtworks(response.data.data)
+    })
+  }
+
+  useEffect(handleIndex, []);
+
   return (
     <main>
-      <h1>Art Institute of Chicago</h1>
+      <ArtworksIndex artworks={artworks}/>
     </main>
   )
 }
